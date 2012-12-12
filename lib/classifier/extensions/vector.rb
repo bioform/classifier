@@ -6,15 +6,23 @@
 require 'matrix'
 require 'mathn'
 
-class Array
+class ArrayWrapper
+  def initialize *args
+    @array = Array.new *args
+  end
+
   def sum(identity = 0, &block)
-    return identity unless size > 0
+    return identity unless @array.size > 0
   
     if block_given?
-      map(&block).sum
+      @array.map(&block).sum
     else
-      inject { |sum, element| sum + element }.to_f
+      @array.inject { |sum, element| sum + element }.to_f
     end
+  end
+
+  def method_missing method_name, *args, &block
+    @array.send method_name, *args, &block
   end
 end
 
