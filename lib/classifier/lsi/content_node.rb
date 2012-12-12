@@ -36,7 +36,7 @@ module Classifier
       if $GSL
          vec = GSL::Vector.alloc(word_list.size)
       else
-         vec = Array.new(word_list.size, 0)
+         vec = ArrayWrapper.new(word_list.size, 0)
       end
 
       @word_hash.each_key do |word|
